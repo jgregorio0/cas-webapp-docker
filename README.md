@@ -13,6 +13,19 @@ A docker image for CAS server. Images are tagged to match CAS server releases.
 
 * Docker version `1.9.x` ~ `1.13.x`
 
+## Quick start
+1. Clone cas-webapp-docker repo https://github.com/jgregorio0/cas-webapp-docker/tree/5.3
+2. Create a new certificate into keystore
+``` 
+keytool -genkey -keyalg RSA -alias cas -keystore thekeystore -storepass changeit -validity 360 -keysize 2048 -dname "${DNAME:-CN=cas.example.org,OU=Example,OU=Org,C=US}" -ext SAN="${CERT_SUBJ_ALT_NAMES:-dns:example.org,dns:localhost,ip:127.0.0.1}"
+```
+3. Default configuration applied into CAS properties /etc/cas/config/cas.properties and CAS service /etc/cas/services/Everything-1.json
+4. Build & run
+```
+sudo ./build.sh 5.3
+sudo ./run.sh 5.3
+```
+
 ## Configuration
 
 ### Image
@@ -56,3 +69,5 @@ The image will be built as `apereo/cas:v$CasVersion`.
 ```bash
 ./push.sh $CasVersion
 ```
+
+
