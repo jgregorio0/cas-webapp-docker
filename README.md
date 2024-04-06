@@ -14,7 +14,9 @@ A docker image for CAS server. Images are tagged to match CAS server releases.
 
 * Docker version `1.9.x` ~ `1.13.x`
 
-## Quick start
+## Getting started
+
+### Build CAS
 
 1. Clone cas-webapp-docker repo https://github.com/jgregorio0/cas-webapp-docker/tree/5.3
 2. Create a new certificate into keystore
@@ -31,12 +33,31 @@ keytool -genkey -keyalg RSA -alias cas -keystore thekeystore -storepass changeit
 sudo ./build.sh 5.3
 sudo ./run.sh 5.3
 ```
+- shared folder is created under ~/shared:/shared directory
 
 5. Access CAS
 
 - URL: https://localhost:8443/cas/login
 - user: casuser
 - pass: Mellon
+
+### Start after shutdown
+
+6. Once have been shutdown, start CAS container `sudo docker container start cas`
+7. Check logs `sudo docker logs --follow cas`
+8. Access CAS
+
+- URL: https://localhost:8443/cas/login
+- user: casuser
+- pass: Mellon
+
+### CAS container configuration
+
+9. Access CAS terminal `sudo docker exec -it cas sh`
+10. Build CAS cli `/cas-overlay/build.sh cli`
+11. Run cli `java -jar /cas-overlay/target/cas-server-support-shell-5.3.16.jar -sh`
+11. Set CAS configuration file `vi /cas-overlay/target/cas/WEB-INF/classes/application.properties`
+ 
 
 ## Configuration
 
